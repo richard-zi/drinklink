@@ -15,10 +15,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Erstelle eine Datenbankverbindung
 const db = mysql.createConnection({
-    host: db_connection.env.DB_HOST,
-    user: db_connection.env.DB_USER,
-    password: db_connection.env.DB_PASSWORD,
-    database: db_connection.env.DB_NAME
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 // Verbinde mit der Datenbank
