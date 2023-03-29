@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 // Lade Umgebungsvariablen aus der .env-Datei
 dotenv.config();
@@ -12,6 +13,9 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// CORS konfigurieren
+app.use(cors());
 
 // Erstelle eine Datenbankverbindung
 const db = mysql.createConnection({
