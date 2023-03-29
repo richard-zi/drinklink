@@ -1,4 +1,4 @@
-name: Mein erweiterter Workflow
+name: DrinklinkWorkflow
 
 on:
   push:
