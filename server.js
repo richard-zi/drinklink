@@ -136,6 +136,29 @@ app.get('/protected', isAuthenticated, (req, res) => {
   res.status(200).json({ message: 'Protected route accessed' });
 });
 
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    prompt: 'Type "exit" to stop the server: '
+});
+
+rl.prompt();
+
+rl.on('line', (line) => {
+    if (line.trim() === 'exit') {
+        console.log('Shutting down the server...');
+        server.close(() => {
+            console.log('Server stopped');
+            process.exit(0);
+        });
+    } else {
+        console.log(`Unknown command: ${line.trim()}`);
+        rl.prompt();
+    }
+}).on('close', () => {
+    process.exit(0);
+});
+
 // Starte den Server und lausche auf Port 3000
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
