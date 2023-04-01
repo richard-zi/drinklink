@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const cors = require('cors');
+const readline = require('readline');
 
 // Lade Umgebungsvariablen aus der .env-Datei
 require('dotenv').config({ path: 'process.env' });
