@@ -8,7 +8,7 @@ const session = require('express-session');
 const cors = require('cors');
 
 // Lade Umgebungsvariablen aus der .env-Datei
-require('dotenv').config({ path: './.env' });
+require('dotenv').config({ path: 'process.env' });
 
 console.log('DB_HOST:', process.env.DB_HOST);
 console.log('DB_USER:', process.env.DB_USER);
