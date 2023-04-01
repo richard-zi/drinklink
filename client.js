@@ -68,6 +68,47 @@ try {
 }
 });
 
+// Event-Listener für die geschützte Route
+document.getElementById('protected-route-btn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/protected');
+        if (response.status === 200) {
+            const data = await response.json();
+            console.log(data);
+            alert('Geschützte Route aufgerufen!');
+        } else {
+            const error = await response.json();
+            console.error(error);
+            alert('Fehler beim Zugriff auf die geschützte Route: ' + error.error);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Fehler beim Zugriff auf die geschützte Route');
+    }
+});
+
+// Event-Listener für den Logout-Button
+document.getElementById('logout-btn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/logout', {
+            method: 'POST',
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            console.log(data);
+            alert('Erfolgreich abgemeldet!');
+        } else {
+            const error = await response.json();
+            console.error(error);
+            alert('Fehler beim Abmelden: ' + error.error);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Fehler beim Abmelden');
+    }
+});
+
 // Der obige Code fügt Event-Listener zu den Login- und Registrierungsformularen hinzu. Wenn ein Benutzer das 
 // Login- oder Registrierungsformular absendet, wird eine POST-Anfrage an den Server gesendet, 
 // um den Benutzer entweder anzumelden oder zu registrieren. 
