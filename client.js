@@ -1,4 +1,4 @@
-const serverUrl = 'http://localhost:3000';
+const serverUrl = 'https://78.47.72.65:3000';
 
 // Fügt einen Event-Listener zum Login-Formular hinzu, der auf das "submit"-Event reagiert
 document.getElementById('login-form').addEventListener('submit', async (e) => {
