@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
 const serverUrl = 'https://78.47.72.65:3000';
 
 // Fügt einen Event-Listener zum Login-Formular hinzu, der auf das "submit"-Event reagiert
@@ -116,3 +117,4 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
 // um den Benutzer entweder anzumelden oder zu registrieren.
 // Wenn die Anfrage erfolgreich ist, zeigt das Skript eine entsprechende Erfolgsmeldung an.
 // Andernfalls wird eine Fehlermeldung angezeigt.
+});
