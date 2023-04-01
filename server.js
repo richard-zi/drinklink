@@ -9,7 +9,7 @@ const cors = require('cors');
 const readline = require('readline');
 
 // Lade Umgebungsvariablen aus der .env-Datei
-require('dotenv').config({ path: `${__dirname}/.env` });
+require('dotenv').config({ path: __dirname + '/.env' });
 
 console.log('DB_HOST:', process.env.DB_HOST);
 console.log('DB_USER:', process.env.DB_USER);
