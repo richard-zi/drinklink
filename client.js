@@ -1,3 +1,5 @@
+const serverUrl = 'http://localhost:3000';
+
 // Fügt einen Event-Listener zum Login-Formular hinzu, der auf das "submit"-Event reagiert
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault(); 
@@ -9,7 +11,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
     try {
         // Sendet eine POST-Anfrage an den '/login'-Endpunkt des Servers
-        const response = await fetch('/login', {
+        const response = await fetch(`${serverUrl}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +46,7 @@ const password = document.getElementById('register-password').value;
 
 try {
     // Sendet eine POST-Anfrage an den '/register'-Endpunkt des Servers
-    const response = await fetch('/register', {
+    const response = await fetch(`${serverUrl}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -71,7 +73,7 @@ try {
 // Event-Listener für die geschützte Route
 document.getElementById('protected-route-btn').addEventListener('click', async () => {
     try {
-        const response = await fetch('/protected');
+        const response = await fetch(`${serverUrl}/protected`);
         if (response.status === 200) {
             const data = await response.json();
             console.log(data);
@@ -90,7 +92,7 @@ document.getElementById('protected-route-btn').addEventListener('click', async (
 // Event-Listener für den Logout-Button
 document.getElementById('logout-btn').addEventListener('click', async () => {
     try {
-        const response = await fetch('/logout', {
+        const response = await fetch(`${serverUrl}/logout`, {
             method: 'POST',
         });
 
@@ -109,8 +111,8 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     }
 });
 
-// Der obige Code fügt Event-Listener zu den Login- und Registrierungsformularen hinzu. Wenn ein Benutzer das 
-// Login- oder Registrierungsformular absendet, wird eine POST-Anfrage an den Server gesendet, 
-// um den Benutzer entweder anzumelden oder zu registrieren. 
-// Wenn die Anfrage erfolgreich ist, zeigt das Skript eine entsprechende Erfolgsmeldung an. 
+// Der obige Code fügt Event-Listener zu den Login- und Registrierungsformularen hinzu. Wenn ein Benutzer das
+// Login- oder Registrierungsformular absendet, wird eine POST-Anfrage an den Server gesendet,
+// um den Benutzer entweder anzumelden oder zu registrieren.
+// Wenn die Anfrage erfolgreich ist, zeigt das Skript eine entsprechende Erfolgsmeldung an.
 // Andernfalls wird eine Fehlermeldung angezeigt.
