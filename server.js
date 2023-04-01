@@ -143,6 +143,10 @@ const rl = readline.createInterface({
     prompt: 'Type "exit" to stop the server: '
 });
 
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 rl.prompt();
 
 rl.on('line', (line) => {
@@ -158,9 +162,4 @@ rl.on('line', (line) => {
     }
 }).on('close', () => {
     process.exit(0);
-});
-
-// Starte den Server und lausche auf Port 3000
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
 });
