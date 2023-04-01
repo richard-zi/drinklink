@@ -15,7 +15,6 @@ console.log('DB_USER:', process.env.DB_USER);
 console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
 console.log('DB_NAME:', process.env.DB_NAME);
 
-
 // Erstelle eine Express-App und konfiguriere sie
 const app = express();
 app.use(bodyParser.json());
@@ -105,39 +104,39 @@ app.post('/login', (req, res) => {
     }
 
     // Prüfe, ob der Benutzer existiert und das Passwort übereinstimmt
-if (results.length === 0) {
-    return res.status(401).json({ error: 'Invalid username or password.' });
-  }
-  
-  const user = results[0];
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    return res.status(401).json({ error: 'Invalid username or password.' });
-  }
-  
-  // Wenn der Benutzer gefunden wurde und das Passwort korrekt ist, speichere die Benutzer-ID in der Sitzung
-  req.session.userId = user.id;
-  res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username } });
+    if (results.length === 0) {
+      return res.status(401).json({ error: 'Invalid username or password.' });
+    }
+
+    const user = results[0];
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid username or password.' });
+    }
+
+    // Wenn der Benutzer gefunden wurde und das Passwort korrekt ist, speichere die Benutzer-ID in der Sitzung
+    req.session.userId = user.id;
+    res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username } });
+  });
 });
 
 // Logout-Routen-Handler
 app.post('/logout', (req, res) => {
-req.session.destroy((err) => {
-if (err) {
-console.error(err);
-return res.status(500).json({ error: 'Server error, please try again.' });
-}
-res.status(200).json({ message: 'Logout successful' });
-});
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Server error, please try again.' });
+    }
+    res.status(200).json({ message: 'Logout successful' });
+  });
 });
 
 // Beispielgeschützte Route
 app.get('/protected', isAuthenticated, (req, res) => {
-res.status(200).json({ message: 'Protected route accessed' });
+  res.status(200).json({ message: 'Protected route accessed' });
 });
 
 // Starte den Server und lausche auf Port 3000
 app.listen(3000, () => {
-console.log('Server is running on port 3000');
-})
+  console.log('Server is running on port 3000');
 });
