@@ -6,10 +6,9 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const cors = require('cors');
-const readline = require('readline');
 
 // Lade Umgebungsvariablen aus der .env-Datei
-require('dotenv').config({ path: __dirname + '/.env' });
+require('dotenv').config({ path: 'process.env' });
 
 console.log('DB_HOST:', process.env.DB_HOST);
 console.log('DB_USER:', process.env.DB_USER);
@@ -137,29 +136,7 @@ app.get('/protected', isAuthenticated, (req, res) => {
   res.status(200).json({ message: 'Protected route accessed' });
 });
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: 'Type "exit" to stop the server: '
-});
-
-const server = app.listen(3000, () => {
-  console.log(`Server is running on port 3000`);
-});
-
-rl.prompt();
-
-rl.on('line', (line) => {
-    if (line.trim() === 'exit') {
-        console.log('Shutting down the server...');
-        server.close(() => {
-            console.log('Server stopped');
-            process.exit(0);
-        });
-    } else {
-        console.log(`Unknown command: ${line.trim()}`);
-        rl.prompt();
-    }
-}).on('close', () => {
-    process.exit(0);
+// Starte den Server und lausche auf Port 3000
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
