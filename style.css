@@ -25,6 +25,12 @@ h2 {
     text-align: center;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .form {
     margin-bottom: 20px;
 }
