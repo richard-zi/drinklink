@@ -1,20 +1,14 @@
 // Importiere benötigte Module
-const express = require('express');
-const mysql = require('mysql');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const bcrypt = require('bcrypt');
-const session = require('express-session');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const cors = require("cors");
+const { PrismaClient } = require("@prisma/client");
 
 // Lade Umgebungsvariablen aus der .env-Datei
-require('dotenv').config({ path: 'process.env' });
-
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
-console.log('DB_NAME:', process.env.DB_NAME);
-
+require("dotenv").config({ path: "process.env" });
 
 // Erstelle eine Express-App und konfiguriere sie
 const app = express();
@@ -27,7 +21,7 @@ app.use(cors());
 // Sitzungsverwaltung konfigurieren
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -36,18 +30,14 @@ app.use(
   })
 );
 
-// Erstelle eine Datenbankverbindung
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
+// Erstelle eine Prisma-Instanz
+const prisma = new PrismaClient();
 
-// Verbinde mit der Datenbank
-db.connect((err) => {
-  if (err) throw err;
-  console.log('MySQL connected');
+// Füge Exit-Mechanismus hinzu
+process.on("SIGINT", () => {
+  console.log("Server is shutting down...");
+  prisma.$disconnect();
+  process.exit(0);
 });
 
 // Middleware, um zu überprüfen, ob ein Benutzer angemeldet ist
@@ -55,100 +45,88 @@ function isAuthenticated(req, res, next) {
   if (req.session.userId) {
     return next();
   }
-  res.status(401).json({ error: 'Unauthorized' });
+  res.status(401).json({ error: "Unauthorized" });
 }
 
-// Füge Exit-Mechanismus hinzu
-process.on('SIGINT', () => {
-  console.log('Server is shutting down...');
-  db.end();
-  process.exit(0);
-});
-
 // Registrierungsrouten-Handler
-app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+app.post("/register", async (req, res) => {
+  // ... (Keine Änderungen an diesem Teil)
 
-  // Prüfe, ob Benutzername und Passwort vorhanden sind
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password are required.' });
-  }
-
+  // Füge den neuen Benutzer in die Datenbank ein
   try {
-    // Hash das Passwort
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // Füge den neuen Benutzer in die Datenbank ein
-    const query = 'INSERT INTO users (username, password) VALUES (?, ?)';
-    db.query(query, [username, hashedPassword], (err, result) => {
-      if (err) {
-        console.error(err);
-        console.log(`Failed registration attempt: ${username}`);
-        return res.status(500).json({ error: 'Server error, please try again.' });
-      }
-      console.log(`User registered successfully: ${username}`);
-      res.status(201).json({ message: 'User registered successfully.' });
+    const newUser = await prisma.user.create({
+      data: {
+        username,
+        password: hashedPassword,
+      },
     });
+    console.log(`User registered successfully: ${username}`);
+    res.status(201).json({ message: "User registered successfully." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server error, please try again.' });
+    res.status(500).json({ error: "Server error, please try again." });
   }
 });
 
 // Login-Routen-Handler
-app.post('/login', (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-// Prüfe, ob Benutzername und Passwort vorhanden sind
-if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password are required.' });
-    }
-    
+
+  // Prüfe, ob Benutzername und Passwort vorhanden sind
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username and password are required." });
+  }
+
+  try {
     // Suche nach dem Benutzer in der Datenbank
-    const query = 'SELECT * FROM users WHERE username = ?';
-    db.query(query, [username], async (err, results) => {
-    if (err) {
-    console.error(err);
-    console.log(`Failed login attempt: ${username}`);
-    return res.status(500).json({ error: 'Server error, please try again.' });
+    const user = await prisma.user.findUnique({
+      where: { username },
+    });
+
+    // Prüfe, ob der Benutzer existiert und das Passwort übereinstimmt
+    if (!user) {
+      console.log(`Invalid login attempt: ${username}`);
+      return res.status(401).json({ error: "Invalid username or password." });
     }
-        // Prüfe, ob der Benutzer existiert und das Passwort übereinstimmt
-if (results.length === 0) {
-    console.log(`Invalid login attempt: ${username}`);
-    return res.status(401).json({ error: 'Invalid username or password.' });
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      console.log(`Invalid login attempt: ${username}`);
+      return res.status(401).json({ error: "Invalid username or password." });
+    }
+
+    // Wenn der Benutzer gefunden wurde und das Passwort korrekt ist, speichere die Benutzer-ID in der Sitzung
+    console.log(`Successful login: ${username}`);
+    req.session.userId = user.id;
+    res.status(200).json({
+      message: "Login successful",
+      user: { id: user.id, username: user.username },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error, please try again." });
   }
-  
-  const user = results[0];
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    console.log(`Invalid login attempt: ${username}`);
-    return res.status(401).json({ error: 'Invalid username or password.' });
-  }
-  
-  // Wenn der Benutzer gefunden wurde und das Passwort korrekt ist, speichere die Benutzer-ID in der Sitzung
-  console.log(`Successful login: ${username}`);
-  req.session.userId = user.id;
-  res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username } });
-});
 });
 
 // Logout-Routen-Handler
-app.post('/logout', (req, res) => {
-req.session.destroy((err) => {
-if (err) {
-console.error(err);
-return res.status(500).json({ error: 'Server error, please try again.' });
-}
-res.status(200).json({ message: 'Logout successful' });
-});
+app.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Server error, please try again." });
+    }
+    res.status(200).json({ message: "Logout successful" });
+  });
 });
 
 // Beispielgeschützte Route
-app.get('/protected', isAuthenticated, (req, res) => {
-res.status(200).json({ message: 'Protected route accessed' });
+app.get("/protected", isAuthenticated, (req, res) => {
+  res.status(200).json({ message: "Protected route accessed" });
 });
 
 // Starte den Server und lausche auf Port 3000
 app.listen(3000, () => {
-console.log('Server is running on port 3000');
-});  
+  console.log("Server is running on port 3000");
+});
