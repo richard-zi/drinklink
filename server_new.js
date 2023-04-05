@@ -87,7 +87,9 @@ app.post("/login", async (req, res) => {
   }
 
   try {
-    const user = await prisma.user.findUnique({ where: { username: username } });
+    const user = await prisma.user.findUnique({
+      where: { username: username },
+    });
 
     if (!user) {
       console.log(`Invalid login attempt: ${username}`);
