@@ -62,7 +62,7 @@ app.post("/register", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.users.create({
       data: {
         username: username,
         password: hashedPassword,
@@ -87,7 +87,7 @@ app.post("/login", async (req, res) => {
   }
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.users.findUnique({
       where: { username: username },
     });
 
