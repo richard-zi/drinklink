@@ -1,4 +1,5 @@
 // Importiere benötigte Module
+import { PrismaClient } from '@prisma/client';
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
