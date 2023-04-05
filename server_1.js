@@ -8,7 +8,10 @@ const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 
 // Lade Umgebungsvariablen aus der .env-Datei
-require("dotenv").config({ path: "process.env" });
+dotenv.config();
+
+// Erstelle eine Prisma-Client-Instanz
+const prisma = new PrismaClient();
 
 // Erstelle eine Express-App und konfiguriere sie
 const app = express();
@@ -30,16 +33,6 @@ app.use(
   })
 );
 
-// Erstelle eine Prisma-Instanz
-const prisma = new PrismaClient();
-
-// Füge Exit-Mechanismus hinzu
-process.on("SIGINT", () => {
-  console.log("Server is shutting down...");
-  prisma.$disconnect();
-  process.exit(0);
-});
-
 // Middleware, um zu überprüfen, ob ein Benutzer angemeldet ist
 function isAuthenticated(req, res, next) {
   if (req.session.userId) {
@@ -48,15 +41,30 @@ function isAuthenticated(req, res, next) {
   res.status(401).json({ error: "Unauthorized" });
 }
 
+// Füge Exit-Mechanismus hinzu
+process.on("SIGINT", () => {
+  console.log("Server is shutting down...");
+  prisma.$disconnect(); // Trenne die Prisma-Verbindung
+  process.exit(0);
+});
+
 // Registrierungsrouten-Handler
 app.post("/register", async (req, res) => {
-  // ... (Keine Änderungen an diesem Teil)
+  const { username, password } = req.body;
 
-  // Füge den neuen Benutzer in die Datenbank ein
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username and password are required." });
+  }
+
   try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const newUser = await prisma.user.create({
       data: {
-        username,
+        username: username,
         password: hashedPassword,
       },
     });
@@ -72,7 +80,6 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  // Prüfe, ob Benutzername und Passwort vorhanden sind
   if (!username || !password) {
     return res
       .status(400)
@@ -80,12 +87,10 @@ app.post("/login", async (req, res) => {
   }
 
   try {
-    // Suche nach dem Benutzer in der Datenbank
     const user = await prisma.user.findUnique({
-      where: { username },
+      where: { username: username },
     });
 
-    // Prüfe, ob der Benutzer existiert und das Passwort übereinstimmt
     if (!user) {
       console.log(`Invalid login attempt: ${username}`);
       return res.status(401).json({ error: "Invalid username or password." });
@@ -97,13 +102,14 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password." });
     }
 
-    // Wenn der Benutzer gefunden wurde und das Passwort korrekt ist, speichere die Benutzer-ID in der Sitzung
     console.log(`Successful login: ${username}`);
     req.session.userId = user.id;
-    res.status(200).json({
-      message: "Login successful",
-      user: { id: user.id, username: user.username },
-    });
+    res
+      .status(200)
+      .json({
+        message: "Login successful",
+        user: { id: user.id, username: user.username },
+      });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error, please try again." });
