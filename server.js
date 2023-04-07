@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
-const routes = require("./routes");
+const routes = require("./backup/routes_old");
 
 // Lade Umgebungsvariablen aus der .env-Datei
 dotenv.config();
