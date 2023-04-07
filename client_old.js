@@ -112,39 +112,6 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     }
 });
 
-// Event-Listner für Bookings
-document.getElementById('booking-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-  
-    const date = document.getElementById('booking-date').value;
-    const time = document.getElementById('booking-time').value;
-    const people = document.getElementById('booking-people').value;
-  
-    try {
-      const response = await fetch(`${serverUrl}/book`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ date, time, people })
-      });
-  
-      if (response.status === 201) {
-        const data = await response.json();
-        console.log(data);
-        alert('Buchung erfolgreich!');
-      } else {
-        const error = await response.json();
-        console.error(error);
-        alert('Fehler bei der Buchung: ' + error.error);
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Fehler bei der Buchung');
-    }
-  });
-  
-
 // Der obige Code fügt Event-Listener zu den Login- und Registrierungsformularen hinzu. Wenn ein Benutzer das
 // Login- oder Registrierungsformular absendet, wird eine POST-Anfrage an den Server gesendet,
 // um den Benutzer entweder anzumelden oder zu registrieren.
