@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-const serverUrl = 'https://dev.nrdc.io';
+const serverUrl = 'http://localhost/drinklink';
 
 // Fügt einen Event-Listener zum Login-Formular hinzu, der auf das "submit"-Event reagiert
 document.getElementById('login-form').addEventListener('submit', async (e) => {

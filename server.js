@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
-const routes = require("routes");
+const routes = require("./routes");
 
 // Lade Umgebungsvariablen aus der .env-Datei
 dotenv.config();
@@ -23,7 +23,7 @@ app.use(cors());
 // Sitzungsverwaltung konfigurieren
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "your-secret-key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -43,7 +43,7 @@ process.on("SIGINT", () => {
 });
 
 // Environment-Variable für den Port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 // Starte den Server und lausche auf den Port
 app.listen(PORT, () => {

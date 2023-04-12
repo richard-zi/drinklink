@@ -117,3 +117,4 @@ function logoutHandler(req, res) {
     
     // Exportiere den Router, damit er in anderen Dateien verwendet werden kann
     module.exports = router;
+
