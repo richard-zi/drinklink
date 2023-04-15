@@ -18,7 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS konfigurieren
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN, // Stellen Sie sicher, dass dies der richtige Ursprung ist
+    credentials: true, // Füge diese Zeile hinzu
+  })
+);
 
 // Sitzungsverwaltung konfigurieren
 app.use(
@@ -27,7 +32,10 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
+      httpOnly: true,
+      secure: false, // Setzen Sie dies auf `true`, wenn Sie HTTPS verwenden
       maxAge: 24 * 60 * 60 * 1000, // 24 Stunden
+      sameSite: "lax",
     },
   })
 );

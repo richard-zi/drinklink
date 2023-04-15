@@ -1,53 +1,47 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login und Registrierung Test</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s4WzCIwoY2Y5IVlL" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="column">
-            <div class="col-12">
-                <h2>Login</h2>
-                <form id="login-form" class="form">
-                    <div class="form-group">
-                        <label for="login-username">Benutzername</label>
-                        <input type="text" id="login-username" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Passwort</label>
-                        <input type="password" id="login-password" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-            </div>
-            <div class="col-12">
-                <h2>Registrierung</h2>
-                <form id="register-form" class="form">
-                    <div class="form-group">
-                        <label for="register-username">Benutzername</label>
-                        <input type="text" id="register-username" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Passwort</label>
-                        <input type="password" id="register-password" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrieren</button>
-                </form>
-            </div>
-        </div>
-        <!-- Logout-Button und Button für geschützte Route hinzugefügt -->
-        <div class="row">
-            <div class="col-12 mt-3">
-                <button id="protected-route-btn" class="btn btn-secondary">Geschützte Route aufrufen</button>
-                <button id="logout-btn" class="btn btn-danger">Abmelden</button>
-            </div>
-        </div>
-    </div>
-    <script src="client.js"></script>
-</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Startseite</title>
+    <style>
+      button {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Willkommen auf unserer Website!</h1>
+    <h2 id="welcome-message"></h2>
 
+    <button onclick="window.location.href='./login.html';">Anmelden</button>
+    <button onclick="window.location.href='./register.html';">Registrieren</button>
+    <button onclick="window.location.href='./booking.html';">Buchungen</button>
+    <button onclick="window.location.href='./account.html';">Benutzerkonto</button>
+    <button id="logout-button">Abmelden</button>
+
+    <script src="./utils.js" type="module"></script>
+    <script src="./getCurrentUser.js" type="module"></script>
+    <script src="./logout.js" type="module"></script>
+    <script type="module">
+      import { getCurrentUser } from "./getCurrentUser.js";
+      import { logout } from "./logout.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const user = await getCurrentUser();
+        const welcomeMessageElement =
+          document.getElementById("welcome-message");
+        if (user) {
+          welcomeMessageElement.textContent = `Willkommen, ${user.username}!`;
+        } else {
+          welcomeMessageElement.textContent = "Bitte melden Sie sich an.";
+        }
+      });
+
+      document
+        .getElementById("logout-button")
+        .addEventListener("click", logout);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Benutzerkonto</title>
+  </head>
+  <body>
+    <h1>Benutzerkonto</h1>
+    <form id="update-form">
+      <label for="username">Neuer Benutzername:</label>
+      <input type="text" id="username" name="username" />
+      <br />
+      <label for="old-password">Altes Passwort:</label>
+      <input type="password" id="old-password" name="oldPassword" />
+      <br />
+      <label for="new-password">Neues Passwort:</label>
+      <input type="password" id="new-password" name="newPassword" />
+      <br />
+      <button type="submit">Änderungen speichern</button>
+    </form>
+    <script type="module" src="utils.js"></script>
+    <script type="module" src="account.js"></script>
+  </body>
+</html>
