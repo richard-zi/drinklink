@@ -1,10 +1,11 @@
 // BookingPage.js
 
+import Layout from '../components/Layout';
 import { useState } from 'react';
-import { sendPostRequest } from '../lib/api-utils';
+import { sendPostRequest } from '../components/api-utils';
 import Head from 'next/head';
 
-const serverUrl = "http://localhost:4000";
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 async function createBooking(date, time, people) {
   const bookingDateTime = new Date(`${date}T${time}`);
@@ -41,11 +42,13 @@ export default function BookingPage() {
 
   return (
     <>
-      <Head>
+    <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Buchung</title>
-      </Head>
+        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <title>Booking</title>
+    </Head>
+      <Layout>
       <h1>Buchung erstellen</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="booking-date">Datum:</label>
@@ -78,6 +81,7 @@ export default function BookingPage() {
         <br />
         <button type="submit">Buchung erstellen</button>
       </form>
+      </Layout>
     </>
   );
 }

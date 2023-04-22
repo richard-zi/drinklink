@@ -7,7 +7,7 @@ const { PrismaClient } = require("@prisma/client");
 const routes = require("./routes");
 
 // Lade Umgebungsvariablen aus der .env-Datei
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 // Erstelle eine Prisma-Client-Instanz
 const prisma = new PrismaClient();

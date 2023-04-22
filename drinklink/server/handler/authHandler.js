@@ -29,7 +29,7 @@ async function registerHandler(req, res) {
     console.log(`User registered successfully: ${username}`);
     res
       .status(StatusCodes.CREATED)
-      .json({ message: "User registered successfully." });
+      .json({ message: "User registered successfully.", user: { username: newUser.username} });
   }
 
 // Handler zum Einloggen von Benutzern

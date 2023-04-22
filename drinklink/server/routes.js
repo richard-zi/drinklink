@@ -3,12 +3,12 @@ const express = require("express");
 const { isAuthenticated, asyncHandler } = require("./middleware");
 const { registerHandler, loginHandler, logoutHandler } = require("./handler/authHandler");
 const { createBookingHandler } = require("./handler/bookingHandler");
-const { updateUserHandler, getCurrentUserHandler } = require("./handler/userHandler");
+const { updateUserHandler, getCurrentUserHandler} = require("./handler/userHandler");
 
 const router = express.Router();
 
 // Füge die Routen mit asyncHandler hinzu
-router.post("/register", asyncHandler(registerHandler));
+router.post("/signup", asyncHandler(registerHandler));
 router.post("/login", asyncHandler(loginHandler));
 router.post("/logout", logoutHandler);
 router.post("/booking", isAuthenticated, asyncHandler(createBookingHandler));
