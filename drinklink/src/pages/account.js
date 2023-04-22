@@ -85,12 +85,6 @@ export default function AccountPage() {
                             Save
                           </button>
                           </form>
-                          <button
-                            onClick={handleBecomeBarOwner}
-                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none shadow-sm"
-                            >
-                              Barbesitzer werden
-                            </button>
                           </div>
                         </div>
                         <div className="w-full md:w-1/2 order-first md:order-last h-full flex justify-center">
