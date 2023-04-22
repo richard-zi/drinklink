@@ -1,3 +1,28 @@
+/* globals.css */
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* Definieren der benutzerdefinierten Klasse shadow-outline */
+.shadow-outline {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Styling für .toggle-checkbox */
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: #3b82f6;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #3b82f6;
+}
+
+.toggle-checkbox:focus + .toggle-label {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.toggle-checkbox:active + .toggle-label {
+  background-color: #1d4ed8;
+}

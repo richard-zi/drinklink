@@ -8,10 +8,11 @@ datasource db {
 }
 
 model users {
-  id       Int      @id @default(autoincrement())
-  username String   @unique(map: "username") @db.VarChar(255)
-  password String   @db.VarChar(255)
-  bookings booking[]
+  id          Int      @id @default(autoincrement())
+  username    String   @unique(map: "username") @db.VarChar(255)
+  password    String   @db.VarChar(255)
+  isBarOwner  Boolean @default(false)
+  bookings    booking[]
 }
 
 model booking {

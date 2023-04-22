@@ -1,10 +1,9 @@
 // account.js
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sendPutRequest } from "../components/api-utils";
 import Head from "next/head";
 import Layout from '../components/Layout';
-import { getCurrentUser } from "../components/getCurrentUser";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -30,11 +29,45 @@ export default function AccountPage() {
   const [username, setUsername] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [isBarOwner, setIsBarOwner] = useState(false);
 
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const user = await getCurrentUser();
+      if (user) {
+        setIsBarOwner(user.isBarOwner);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  const handleBarOwnerChange = async (e) => {
+    const newIsBarOwner = e.target.checked;
+    setIsBarOwner(newIsBarOwner);
+    await updateBarOwnerStatus(newIsBarOwner);
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateAccount(username, oldPassword, newPassword);
   };
+
+async function updateBarOwnerStatus(isBarOwner) {
+    const response = await sendPutRequestWithPayload(`${serverUrl}/set-bar-owner-status`, {
+      isBarOwner,
+    });
+  
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+      alert("Bar-Besitzer-Status wurde erfolgreich aktualisiert!");
+    } else {
+      const error = await response.json();
+      console.error(error);
+      alert("Fehler beim Aktualisieren des Bar-Besitzer-Status: " + error.error);
+    }
+  }
 
   return (
     <>
@@ -85,8 +118,26 @@ export default function AccountPage() {
                             Save
                           </button>
                           </form>
+                          <div className="flex items-center justify-between">
+                            <label htmlFor="bar-owner-switch" className="text-sm text-gray-800">
+                              Bar-Besitzer
+                            </label>
+                            <div className="relative inline-block w-10 ml-2 align-middle select-none transition duration-200 ease-in">
+                              <input
+                                type="checkbox"
+                                name="bar-owner-switch"
+                                id="bar-owner-switch"
+                                checked={isBarOwner}
+                                onChange={handleBarOwnerChange}
+                                className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                              />
+                              <label
+                              htmlFor="bar-owner-switch"
+                              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+                            ></label>
                           </div>
                         </div>
+                      </div>
                         <div className="w-full md:w-1/2 order-first md:order-last h-full flex justify-center">
                         <img
                         src="https://abload.de/img/adobestock_1799976205gdihf.png"
@@ -95,6 +146,7 @@ export default function AccountPage() {
                     />
           </div>
         </div>
+      </div>
       </Layout>
     </>
   );

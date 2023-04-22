@@ -3,7 +3,7 @@ const express = require("express");
 const { isAuthenticated, asyncHandler } = require("./middleware");
 const { registerHandler, loginHandler, logoutHandler } = require("./handler/authHandler");
 const { createBookingHandler } = require("./handler/bookingHandler");
-const { updateUserHandler, getCurrentUserHandler} = require("./handler/userHandler");
+const { updateUserHandler, getCurrentUserHandler, setBarOwnerStatusHandler} = require("./handler/userHandler");
 
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.post("/logout", logoutHandler);
 router.post("/booking", isAuthenticated, asyncHandler(createBookingHandler));
 router.put("/user", isAuthenticated, asyncHandler(updateUserHandler));
 router.get("/current-user", asyncHandler(getCurrentUserHandler));
+router.put("/set-bar-owner-status", isAuthenticated, asyncHandler(setBarOwnerStatusHandler));
 
 // Route für geschützten Bereich, die nur von authentifizierten Benutzern aufgerufen werden kann
 router.get("/protected", isAuthenticated, (req, res) => {
