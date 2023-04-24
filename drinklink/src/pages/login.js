@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "../components/api-utils";
+import { sendPostRequest } from "../lib/api-utils";
 import Head from 'next/head';
 import Layout from '../components/Layout';
 

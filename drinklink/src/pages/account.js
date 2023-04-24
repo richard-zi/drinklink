@@ -1,9 +1,10 @@
 // account.js
 
 import { useEffect, useState } from "react";
-import { sendPutRequest } from "../components/api-utils";
+import { sendPutRequest } from "../lib/api-utils";
 import Head from "next/head";
 import Layout from '../components/Layout';
+import { getCurrentUser } from "../lib/getCurrentUser";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -54,7 +55,7 @@ export default function AccountPage() {
   };
 
 async function updateBarOwnerStatus(isBarOwner) {
-    const response = await sendPutRequestWithPayload(`${serverUrl}/set-bar-owner-status`, {
+    const response = await sendPutRequest(`${serverUrl}/set-bar-owner-status`, {
       isBarOwner,
     });
   
@@ -138,13 +139,6 @@ async function updateBarOwnerStatus(isBarOwner) {
                           </div>
                         </div>
                       </div>
-                        <div className="w-full md:w-1/2 order-first md:order-last h-full flex justify-center">
-                        <img
-                        src="https://abload.de/img/adobestock_1799976205gdihf.png"
-                        alt="A bar image"
-                        className="object-cover h-full w-7/10 mx-auto"
-                    />
-          </div>
         </div>
       </div>
       </Layout>

@@ -2,7 +2,7 @@
 
 import Layout from '../components/Layout';
 import { useState } from 'react';
-import { sendPostRequest } from '../components/api-utils';
+import { sendPostRequest } from '../lib/api-utils';
 import Head from 'next/head';
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;

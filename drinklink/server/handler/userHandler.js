@@ -37,7 +37,14 @@ async function updateUserHandler(req, res) {
         data: { username: username },
       });
     }
-  
+
+    if (typeof isBarOwner === "boolean") {
+      await prisma.users.update({
+        where: { id: userId },
+        data: { isBarOwner: isBarOwner },
+      });
+    }
+    
     res
       .status(StatusCodes.OK)
       .json({ message: "User data updated successfully" });
@@ -55,7 +62,7 @@ async function getCurrentUserHandler(req, res) {
   
     const user = await prisma.users.findUnique({
       where: { id: userId },
-      select: { id: true, username: true },
+      select: { id: true, username: true, isBarOwner: true },
     });
   
     if (!user) {

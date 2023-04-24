@@ -1,7 +1,6 @@
 // utils.js
 
-export async function sendPostRequest(url, payload = {}, headers = {}) {
-  console.log("Headers:", headers);
+export async function sendPostRequest(url, payload) {
   try {
     const response = await fetch(url, {
       method: "POST",

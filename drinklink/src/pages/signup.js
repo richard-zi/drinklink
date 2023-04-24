@@ -1,7 +1,7 @@
 // signup.js
 
 import { useState } from 'react';
-import { sendPostRequest } from '../components/api-utils';
+import { sendPostRequest } from '../lib/api-utils';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import { useRouter } from 'next/router'; // Importiere useRouter von 'next/router'

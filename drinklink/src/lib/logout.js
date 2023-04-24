@@ -1,4 +1,5 @@
 // logout.js
+
 import { sendPostRequest } from "./api-utils.js";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
