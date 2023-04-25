@@ -65,6 +65,15 @@ function Navbar() {
               </Link>
             </li>
           )}
+          {user && user.isBarOwner && (
+            <li>
+              <Link href="/managebar">
+                <span className="cursor-pointer hover:border-b-2 border-black">
+                  Manage Bar
+                </span>
+              </Link>
+            </li>
+          )}
         </ul>
 
         <div className="flex space-x-6 text-black">

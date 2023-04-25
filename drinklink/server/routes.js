@@ -1,9 +1,11 @@
 // Importiere benötigte Module und erstelle eine neue Express-Router-Instanz
 const express = require("express");
+const { StatusCodes } = require("http-status-codes");
 const { isAuthenticated, asyncHandler } = require("./middleware");
 const { registerHandler, loginHandler, logoutHandler } = require("./handler/authHandler");
 const { createBookingHandler } = require("./handler/bookingHandler");
 const { updateUserHandler, getCurrentUserHandler, setBarOwnerStatusHandler} = require("./handler/userHandler");
+const { createBarHandler, updateBarHandler, getBarHandler, deleteBarHandler, } = require("./handler/barHandler");
 
 const router = express.Router();
 
@@ -15,6 +17,12 @@ router.post("/booking", isAuthenticated, asyncHandler(createBookingHandler));
 router.put("/user", isAuthenticated, asyncHandler(updateUserHandler));
 router.get("/current-user", asyncHandler(getCurrentUserHandler));
 router.put("/set-bar-owner-status", isAuthenticated, asyncHandler(setBarOwnerStatusHandler));
+
+// Bar management routes
+router.post("/bar", isAuthenticated, asyncHandler(createBarHandler));
+router.put("/bar/:id", isAuthenticated, asyncHandler(updateBarHandler));
+router.get("/bar", isAuthenticated, asyncHandler(getBarHandler));
+router.delete("/bar/:id", isAuthenticated, asyncHandler(deleteBarHandler));
 
 // Route für geschützten Bereich, die nur von authentifizierten Benutzern aufgerufen werden kann
 router.get("/protected", isAuthenticated, (req, res) => {
