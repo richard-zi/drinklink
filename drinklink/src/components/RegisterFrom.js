@@ -39,7 +39,7 @@ function RegisterForm() {
   };
 
   return (
-    <div className="w-full md:w-1/2 order-last md:order-first flex flex-col justify-center items-center">
+    <div className="flex justify-center items-center max-w-md">
       <div className="bg-white shadow-lg rounded-lg p-8 w-4/5 md:w-full shadow-md">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
           Create an Account
