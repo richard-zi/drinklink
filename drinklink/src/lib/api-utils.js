@@ -47,17 +47,18 @@ export async function sendPutRequest(url, payload) {
   } catch (err) {
     console.error(err);
     alert("Fehler bei der Anfrage");
-  }}
-
-  export async function sendDeleteRequest(url, options = {}) {
-    const defaultOptions = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    };
-    const requestOptions = { ...defaultOptions, ...options };
-    const response = await fetch(url, requestOptions);
-    return response;
   }
+}
+
+export async function sendDeleteRequest(url, options = {}) {
+  const defaultOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  };
+  const requestOptions = { ...defaultOptions, ...options };
+  const response = await fetch(url, requestOptions);
+  return response;
+}

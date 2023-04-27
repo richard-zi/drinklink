@@ -1,56 +1,57 @@
-// LoginForm.js
+// signup.js
 
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { sendPostRequest } from "../lib/api-utils";
+import { useRouter } from "next/router"; // Importiere useRouter von 'next/router'
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-async function login(username, password) {
-  const response = await sendPostRequest(`${serverUrl}/login`, {
+async function register(username, password) {
+  const response = await sendPostRequest(`${serverUrl}/signup`, {
     username,
     password,
   });
-  if (response.status === 200) {
+  if (response.status === 201) {
     const data = await response.json();
     console.log(data);
-    alert(`Erfolgreiche Anmeldung! Willkommen ${data.user.username}`);
+    alert("Erfolgreiche Registrierung!");
     return true;
   } else {
     const error = await response.json();
     console.error(error);
-    alert("Fehler bei der Anmeldung: " + error.error);
+    alert("Fehler bei der Registrierung: " + error.error);
     return false;
   }
 }
 
-function LoginForm() {
+function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const router = useRouter(); // Füge die useRouter Hook hinzu
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (await login(username, password)) {
-      router.push("/");
+    const success = await register(username, password); // Speichere das Ergebnis der Registrierung in einer Variable
+
+    if (success) {
+      router.push("/login"); // Leite den Benutzer zur /login-Route weiter, wenn die Registrierung erfolgreich war
     }
   };
 
   return (
-    <div className="flex justify-center items-center max-w-md">
+    <div className="w-full md:w-1/2 order-last md:order-first flex flex-col justify-center items-center">
       <div className="bg-white shadow-lg rounded-lg p-8 w-4/5 md:w-full shadow-md">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
-          Log in to DrinkLink
+          Create an Account
         </h1>
         <p className="text-center text-gray-600 text-sm mb-8">
-          Welcome to DrinkLink. Please log in with your account or create a new
-          one.
+          Please fill in the following fields to create an account.
         </p>
-        <form className="mb-8" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mb-8">
           <div className="mb-4">
             <input
               type="text"
-              id="login-username"
+              id="register-username"
               className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm"
               placeholder="Username"
               value={username}
@@ -60,8 +61,16 @@ function LoginForm() {
           </div>
           <div className="mb-4">
             <input
+              type="email"
+              id="email"
+              className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm"
+              placeholder="Email address"
+            />
+          </div>
+          <div className="mb-4">
+            <input
               type="password"
-              id="login-password"
+              id="register-password"
               className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm"
               placeholder="Password"
               value={password}
@@ -73,13 +82,13 @@ function LoginForm() {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full mb-6 focus:outline-none shadow-sm"
           >
-            Log in
+            Create Account
           </button>
         </form>
         <p className="text-center text-gray-600 text-sm mb-4">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-blue-500 font-bold">
-            Sign up
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-500 font-bold">
+            Log in
           </a>
         </p>
       </div>
@@ -87,4 +96,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;
