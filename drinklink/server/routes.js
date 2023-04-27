@@ -9,16 +9,21 @@ const { createBarHandler, updateBarHandler, getBarHandler, deleteBarHandler, } =
 
 const router = express.Router();
 
-// Füge die Routen mit asyncHandler hinzu
+// Routen mit asyncHandler hinzu
+// authHandler routes
 router.post("/signup", asyncHandler(registerHandler));
 router.post("/login", asyncHandler(loginHandler));
 router.post("/logout", logoutHandler);
+
+// bookingHandler routes
 router.post("/booking", isAuthenticated, asyncHandler(createBookingHandler));
+
+// userHandler routes
 router.put("/user", isAuthenticated, asyncHandler(updateUserHandler));
 router.get("/current-user", asyncHandler(getCurrentUserHandler));
 router.put("/set-bar-owner-status", isAuthenticated, asyncHandler(setBarOwnerStatusHandler));
 
-// Bar management routes
+// barHandler routes
 router.post("/bar", isAuthenticated, asyncHandler(createBarHandler));
 router.put("/bar/:id", isAuthenticated, asyncHandler(updateBarHandler));
 router.get("/bar", isAuthenticated, asyncHandler(getBarHandler));
