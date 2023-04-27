@@ -82,9 +82,37 @@ async function deleteBarHandler(req, res) {
   res.status(StatusCodes.NO_CONTENT).json({ message: "Bar deleted" });
 }
 
+async function getAllBarsHandler(req, res) {
+  const bars = await prisma.bar.findMany({
+    include: {
+      owner: true,
+    },
+  });
+
+  res.status(StatusCodes.OK).json(bars);
+}
+
+async function getSingleBarHandler(req, res) {
+  const { id } = req.params;
+
+  // Suche die Bar in der Datenbank
+  const bar = await prisma.bar.findUnique({
+    where: { id: Number(id) },
+    include: { owner: true },
+  });
+
+  if (!bar) {
+    return res.status(StatusCodes.NOT_FOUND).json({ error: "Bar not found" });
+  }
+
+  res.status(StatusCodes.OK).json(bar);
+}
+
 module.exports = {
   createBarHandler,
   updateBarHandler,
   getBarHandler,
   deleteBarHandler,
+  getAllBarsHandler,
+  getSingleBarHandler,
 };

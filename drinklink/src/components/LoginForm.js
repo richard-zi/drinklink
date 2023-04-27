@@ -24,7 +24,7 @@ async function login(username, password) {
   }
 }
 
-function loginForm() {
+function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -87,4 +87,4 @@ function loginForm() {
   );
 }
 
-export default loginForm;
+export default LoginForm;

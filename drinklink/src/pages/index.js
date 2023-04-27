@@ -3,6 +3,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import BarCard from 'components/components/BarCard';
 
 const Index = () => {
   return (
@@ -35,7 +36,9 @@ const Index = () => {
             <div className="bg-white py-16">
                 <div className="container mx-auto px-8">
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Find the best bars near you.</h2>
-                    <p className="text-center text-gray-600 text-sm mb-8">HIER ZEIGEN WIR DANN ALLE BARS AN</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+                        <BarCard />
+                    </div>
                 </div>
             </div>
             <div className="bg-gray-800 text-white py-16">

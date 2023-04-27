@@ -24,7 +24,7 @@ async function register(username, password) {
   }
 }
 
-function signupForm() {
+function SignupForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter(); // Füge die useRouter Hook hinzu
@@ -96,4 +96,4 @@ function signupForm() {
   );
 }
 
-export default signupForm;
+export default SignupForm;
