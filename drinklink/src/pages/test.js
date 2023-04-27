@@ -1,8 +1,8 @@
 // signup.js
 
 import Head from 'next/head';
-import LoginForm from 'components/components/LoginForm';
-import SignupForm from 'components/components/SignupForm';
+import LoginForm from 'components/components/loginForm';
+import SignupForm from 'components/components/signupForm';
 
 export default function RegisterPage() {
 

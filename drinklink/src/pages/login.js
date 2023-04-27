@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Layout from "components/components/Layout";
-import LoginForm from "components/components/LoginForm";
+import LoginForm from "components/components/loginForm";
 
 export default function LoginPage() {
   return (
