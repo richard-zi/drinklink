@@ -139,7 +139,7 @@ async function updateBarOwnerStatus(isBarOwner) {
                           </div>
                         </div>
                       </div>
-        </div>
+              </div>
       </div>
       </Layout>
     </>

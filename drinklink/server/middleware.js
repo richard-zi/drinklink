@@ -4,8 +4,9 @@ const { StatusCodes } = require("http-status-codes");
 function isAuthenticated(req, res, next) {
     if (req.session.userId) {
       return next();
-    }
-    res.status(StatusCodes.UNAUTHORIZED).json({ error: "Unauthorized" });
+    } else {
+    res.redirect("/");
+  }
 }
 
 // Funktion, die einen Handler für die Fehlerbehandlung von asynchronen Routen einhüllt

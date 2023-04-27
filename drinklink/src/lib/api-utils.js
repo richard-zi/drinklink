@@ -55,6 +55,7 @@ export async function sendPutRequest(url, payload) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     };
     const requestOptions = { ...defaultOptions, ...options };
     const response = await fetch(url, requestOptions);

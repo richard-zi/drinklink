@@ -13,7 +13,7 @@ model users {
   password    String   @db.VarChar(255)
   isBarOwner  Boolean @default(false)
   bookings    booking[]
-  ownedBars   bar[]
+  ownedBar    bar?     @relation("barOwner")
 }
 
 
@@ -33,6 +33,6 @@ model bar {
   name        String
   description String
   address     String
-  owner       users    @relation(fields: [ownerId], references: [id])
-  ownerId     Int
+  owner       users    @relation("barOwner", fields: [ownerId], references: [id])
+  ownerId     Int      @unique
 }
