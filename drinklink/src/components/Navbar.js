@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "../lib/api-utils";
-import { getCurrentUser } from "../lib/getCurrentUser";
+import { sendPostRequest } from "components/lib/api-utils";
+import { getCurrentUser } from "components/lib/getCurrentUser";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 

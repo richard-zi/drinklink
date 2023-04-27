@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 import LoginForm from 'components/components/LoginForm';
-import RegisterForm from 'components/components/RegisterFrom';
+import SignupForm from 'components/components/SignupForm';
 
 export default function RegisterPage() {
 
@@ -15,8 +15,8 @@ export default function RegisterPage() {
       </Head>
       <LoginForm>
       </LoginForm>
-      <RegisterForm>
-      </RegisterForm>
+      <SignupForm>
+      </SignupForm>
     </>
   );
 }

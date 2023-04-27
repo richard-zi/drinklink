@@ -1,4 +1,4 @@
-// LoginPage.js
+// login.js
 
 import Head from "next/head";
 import Layout from "components/components/Layout";

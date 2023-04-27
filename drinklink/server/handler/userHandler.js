@@ -52,25 +52,30 @@ async function updateUserHandler(req, res) {
 
 // Handler zum Abrufen des aktuellen Benutzers
 async function getCurrentUserHandler(req, res) {
-    const userId = req.session.userId;
-  
-    if (!userId) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({ error: "User not logged in" });
-    }
-  
+  const userId = req.session.userId;
+
+  if (!userId) {
+    return res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ error: "User not logged in" });
+  }
+
+  try {
     const user = await prisma.users.findUnique({
       where: { id: userId },
       select: { id: true, username: true, isBarOwner: true },
     });
-  
+
     if (!user) {
       return res.status(StatusCodes.NOT_FOUND).json({ error: "User not found" });
     }
-  
+
     res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Error fetching user' });
   }
+}
 
 // Handler zum Aktualisieren des Bar-Besitzer-Status
 async function setBarOwnerStatusHandler(req, res) {
