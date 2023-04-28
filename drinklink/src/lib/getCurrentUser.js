@@ -17,7 +17,7 @@ export async function getCurrentUser() {
       console.log(data);
       return data;
     } else if (response.status === 401) {
-      console.log("Benutzer nicht angemeldet");
+      // Benutzer nicht angemeldet, aber keine Konsolenausgabe mehr
       return null;
     } else {
       console.error("Failed to fetch current user");

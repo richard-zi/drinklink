@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { sendGetRequest } from "../../lib/api-utils";
+import BookingForm from "../../components/BookingForm";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -43,6 +44,8 @@ export default function BarDetails() {
           <p className="mt-6">
           <span className="font-bold">Besitzer:</span> {bar.owner ? bar.owner.username : 'Nicht verfügbar'}
           </p>
+          <br></br>
+          <BookingForm />
         </div>
       </div>
     </Layout>

@@ -18,15 +18,17 @@ model users {
 
 
 model booking {
-  id          Int      @id @default(autoincrement())
-  date        DateTime
-  time        DateTime
-  people      Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        users    @relation(fields: [userId], references: [id])
-  userId      Int
+  id        Int      @id @default(autoincrement())
+  dateTime  DateTime
+  people    Int
+  user      users     @relation(fields: [userId], references: [id])
+  userId    Int
+  bar       bar      @relation(fields: [barId], references: [id])
+  barId     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
 
 model bar {
   id          Int      @id @default(autoincrement())
@@ -35,4 +37,5 @@ model bar {
   address     String
   owner       users    @relation("barOwner", fields: [ownerId], references: [id])
   ownerId     Int      @unique
+  bookings    booking[] 
 }

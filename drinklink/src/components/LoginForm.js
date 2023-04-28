@@ -24,7 +24,7 @@ async function login(username, password) {
   }
 }
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();

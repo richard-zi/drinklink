@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Layout from "components/components/Layout";
-import SignupForm from "components/components/signupForm";
+import SignupForm from "components/components/SignupForm";
 
 export default function RegisterPage() {
   return (

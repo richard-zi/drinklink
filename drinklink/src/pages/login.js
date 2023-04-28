@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Layout from "components/components/Layout";
-import LoginForm from "components/components/loginForm";
+import LoginForm from "components/components/LoginForm";
 
 export default function LoginPage() {
   return (
@@ -15,7 +15,7 @@ export default function LoginPage() {
       </Head>
       <Layout>
         <div className="flex flex-col md:flex-row items-center justify-center bg-white min-h-screen">
-          <LoginForm></LoginForm>
+        <LoginForm></LoginForm>
           <div className="w-full md:w-1/2 order-first md:order-last h-full flex justify-center">
             <img
               src="https://abload.de/img/adobestock_1799976205gdihf.png"

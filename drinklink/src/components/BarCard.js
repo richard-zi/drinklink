@@ -4,22 +4,42 @@ import { sendGetRequest } from '../lib/api-utils';
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-export default function BarCard({ searchTerm }) {
+export default function BarCard() {
   const [bars, setBars] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     async function fetchBars() {
-      const response = await sendGetRequest(`${serverUrl}/bars`);
-      const data = await response.json();
-      setBars(data);
+      try {
+        const response = await sendGetRequest(`${serverUrl}/bars`);
+        if (!response.ok) {
+          throw new Error(`An error occurred: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setBars(data);
+      } catch (error) {
+        console.error('Error fetching bars:', error);
+      }
     }
-
+  
     fetchBars();
   }, []);
-
+  
   const filteredBars = bars.filter((bar) =>
     bar.name.toLowerCase().includes((searchTerm || '').toLowerCase())
   );
+
+  useEffect(() => {
+    const handleSearchTermChange = (event) => {
+      setSearchTerm(event.detail);
+    };
+
+    window.addEventListener('searchTermChange', handleSearchTermChange);
+
+    return () => {
+      window.removeEventListener('searchTermChange', handleSearchTermChange);
+    };
+  }, []);
 
   return (
     <>

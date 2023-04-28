@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-  
+
     const handleSearch = (e) => {
-      e.preventDefault();
-      onSearch(searchTerm);
-    };
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent('searchTermChange', { detail: searchTerm }));
+  };
     
   return (
       <nav className="bg-white shadow-lg">
@@ -142,12 +142,12 @@ export default function SearchBar({ onSearch }) {
                                 placeholder="Ort/Restaurantname"
                                 className="w-full py-2 px-4 border border-gray-400 rounded-md"
                             />
-
                             <button
-                                type="submit"
-                                className="w-full inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            onClick={handleSearch}
+                            type="submit"
+                            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
-                                Suchen
+                            Suchen
                             </button>
                         </form>
                     </div>
