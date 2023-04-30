@@ -9,7 +9,7 @@ const { isAuthenticated, asyncHandler } = require("./middleware");
 const { registerHandler, loginHandler, logoutHandler } = require("./handler/authHandler");
 
 // bookingHandler
-const { createBookingHandler } = require("./handler/bookingHandler");
+const { createBookingHandler, getUserBookingsHandler, deleteBookingHandler } = require("./handler/bookingHandler");
 
 // userHandler
 const { updateUserHandler, getCurrentUserHandler, setBarOwnerStatusHandler} = require("./handler/userHandler");
@@ -26,6 +26,8 @@ router.post("/logout", logoutHandler);
 
 // bookingHandler routes
 router.post("/booking", isAuthenticated, asyncHandler(createBookingHandler));
+router.get("/user-bookings", isAuthenticated, asyncHandler(getUserBookingsHandler));
+router.delete("/booking/:id", isAuthenticated, asyncHandler(deleteBookingHandler));
 
 // userHandler routes
 router.put("/user", isAuthenticated, asyncHandler(updateUserHandler));

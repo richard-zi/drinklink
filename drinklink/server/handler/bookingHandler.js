@@ -42,6 +42,58 @@ async function createBookingHandler(req, res) {
   }
 }
 
+// Handler zum Abrufen der Buchungen eines Benutzers
+async function getUserBookingsHandler(req, res) {
+  const userId = req.session.userId;
+
+  try {
+    const userBookings = await prisma.booking.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        bar: true,
+      },
+    });
+
+    res.status(200).json(userBookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error, please try again." });
+  }
+}
+
+// Handler zum Löschen einer Buchung
+async function deleteBookingHandler(req, res) {
+  const bookingId = parseInt(req.params.id, 10);
+  const userId = req.session.userId;
+
+  try {
+    const deletedBooking = await prisma.booking.delete({
+      where: {
+        id: bookingId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    if (deletedBooking.user.id !== userId) {
+      res.status(403).json({ error: "You are not authorized to delete this booking." });
+      return;
+    }
+
+    res.status(200).json(deletedBooking);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error, please try again." });
+  }
+}
+
+
+
 module.exports = {
   createBookingHandler,
+  getUserBookingsHandler,
+  deleteBookingHandler,
 };

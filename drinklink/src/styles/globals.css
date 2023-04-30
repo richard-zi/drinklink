@@ -26,3 +26,7 @@
 .toggle-checkbox:active + .toggle-label {
   background-color: #1d4ed8;
 }
+
+.dropdown-container, .username-container {
+  user-select: none;
+}
