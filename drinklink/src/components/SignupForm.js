@@ -40,7 +40,7 @@ function SignupForm() {
 
   return (
     <div className="flex justify-center items-center max-w-md">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-4/5 md:w-full shadow-md">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-4/5 md:w-full">
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
           Create an Account
         </h1>

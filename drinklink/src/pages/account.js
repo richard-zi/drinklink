@@ -81,7 +81,7 @@ async function updateBarOwnerStatus(isBarOwner) {
     <Layout>
       <div className="flex flex-col md:flex-row items-center justify-center bg-white min-h-screen">
                 <div className="w-full md:w-1/2 order-last md:order-first p-6 flex flex-col justify-center items-center">
-                    <div className="bg-white shadow-lg rounded-lg p-8 w-4/5 md:w-full shadow-md">
+                    <div className="bg-white shadow-lg rounded-lg p-8 w-4/5 md:w-full">
                         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">Settings</h1>
                         <p className="text-center text-gray-600 text-sm mb-8">Change your email or password.</p>
                         <form onSubmit={handleSubmit} className="mb-8">
