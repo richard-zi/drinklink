@@ -1,7 +1,7 @@
 // managebar.js
 
 import { useState } from "react";
-import { sendPostRequest, sendPutRequest, sendGetRequest, sendDeleteRequest } from "../lib/api-utils";
+import { sendPostRequest, sendPutRequest, sendGetRequest, sendDeleteRequest } from "../lib/apiUtils";
 import Layout from '../components/Layout';
 import Head from 'next/head';
 

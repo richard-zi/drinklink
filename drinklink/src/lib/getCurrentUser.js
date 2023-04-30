@@ -1,5 +1,5 @@
 // getCurrentUser.js
-import { sendGetRequest } from "./api-utils.js";
+import { sendGetRequest } from "./apiUtils.js";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 

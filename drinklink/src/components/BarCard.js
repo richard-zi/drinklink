@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { sendGetRequest } from '../lib/api-utils';
+import { sendGetRequest } from '../lib/apiUtils';
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 

@@ -1,6 +1,6 @@
 // booking-utils.js
-import { sendGetRequest } from "./api-utils.js";
-import { sendDeleteRequest } from "./api-utils.js";
+import { sendGetRequest } from "./apiUtils.js";
+import { sendDeleteRequest } from "./apiUtils.js";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 

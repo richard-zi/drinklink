@@ -1,7 +1,7 @@
 // account.js
 
 import { useEffect, useState } from "react";
-import { sendPutRequest } from "../lib/api-utils";
+import { sendPutRequest } from "../lib/apiUtils";
 import Head from "next/head";
 import Layout from '../components/Layout';
 import { getCurrentUser } from "../lib/getCurrentUser";

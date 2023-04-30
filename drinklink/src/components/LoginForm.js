@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "../lib/api-utils";
+import { sendPostRequest } from "../lib/apiUtils";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 

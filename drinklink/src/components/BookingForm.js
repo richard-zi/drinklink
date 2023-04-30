@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { sendPostRequest } from "../lib/api-utils";
+import { sendPostRequest } from "../lib/apiUtils";
 import { useRouter } from "next/router";
 import StepIndicator from "./StepIndicator";
 import ReactDatePicker from "react-datepicker";

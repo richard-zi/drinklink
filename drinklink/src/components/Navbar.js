@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "components/lib/api-utils";
+import { sendPostRequest } from "components/lib/apiUtils";
 import { getCurrentUser } from "components/lib/getCurrentUser";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;

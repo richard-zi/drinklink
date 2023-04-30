@@ -1,7 +1,7 @@
 // signup.js
 
 import { useState } from "react";
-import { sendPostRequest } from "../lib/api-utils";
+import { sendPostRequest } from "../lib/apiUtils";
 import { useRouter } from "next/router"; // Importiere useRouter von 'next/router'
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;

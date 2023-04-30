@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import { sendGetRequest } from "../../lib/api-utils";
+import { sendGetRequest } from "../../lib/apiUtils";
 import BookingForm from "../../components/BookingForm";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
