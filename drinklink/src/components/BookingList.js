@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "../lib/getCurrentUser";
-import { getUserBookings } from "../lib/booking-utils";
-import { cancelBooking } from "../lib/booking-utils";
+import { getUserBookings } from "../lib/bookingUtils";
+import { cancelBooking } from "../lib/bookingUtils";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
