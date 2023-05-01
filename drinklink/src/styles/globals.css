@@ -12,11 +12,11 @@
 /* Styling für .toggle-checkbox */
 .toggle-checkbox:checked {
   right: 0;
-  border-color: #3b82f6;
+  border-color: #2563EB;
 }
 
 .toggle-checkbox:checked + .toggle-label {
-  background-color: #3b82f6;
+  background-color: #2563EB;
 }
 
 .toggle-checkbox:focus + .toggle-label {
@@ -24,7 +24,7 @@
 }
 
 .toggle-checkbox:active + .toggle-label {
-  background-color: #1d4ed8;
+  background-color: #2563EB;
 }
 
 .dropdown-container, .username-container {
