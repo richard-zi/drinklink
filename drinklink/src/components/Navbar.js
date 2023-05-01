@@ -1,5 +1,3 @@
-// src/components/Navbar.js
-
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -20,7 +18,7 @@ function Navbar() {
   }, [router.pathname]);
 
   async function handleLogout() {
-    await logout(); 
+    await logout();
     setUser(null);
     router.push("/");
   }
@@ -79,27 +77,24 @@ function Navbar() {
                 >
                   <path
                     fillRule="evenodd"
-                    d="M4.293 7.293a1 1 0 011.414 0L10 11.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z"
+                    d="M4.293 7.293a1 1 0 011.414 0L10 11.586l4.293-4.293a1 1 0 011.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z"
                     clipRule="evenodd"
                   />
                 </svg>
               </div>
               {dropdownOpen && (
-                <div
-                  className="absolute top-full mt-1 right-0 bg-white border border-gray-200 rounded-md shadow-md px-1 py-0.5 dropdown-container"
-                  style={{ width: `${50 + (user.isBarOwner ? 80 : 0)}px` }}
-                >
+                <div className="absolute top-full mt-1 right-0 bg-white border border-gray-200 rounded-md shadow-md px-1 py-0.5 dropdown-container min-w-max">
                   <ul className="py-1">
                     <li>
                       <Link href="/bookings">
-                        <span className="block px-4 py-1 cursor-pointer hover:bg-blue-600 hover:text-white rounded-md">
+                        <span className="block px-4 py-1 text-sm sm:text-base cursor-pointer hover:bg-blue-600 hover:text-white rounded-md">
                           Bookings
                         </span>
                       </Link>
                     </li>
                     <li>
                       <Link href="/account">
-                        <span className="block px-4 py-1 cursor-pointer hover:bg-blue-600 hover:text-white rounded-md">
+                        <span className="block px-4 py-1 text-sm sm:text-base cursor-pointer hover:bg-blue-600 hover:text-white rounded-md">
                           Settings
                         </span>
                       </Link>
@@ -107,15 +102,15 @@ function Navbar() {
                     {user.isBarOwner && (
                       <li>
                         <Link href="/managebar">
-                          <span className="block px-4 py-1 cursor-pointer hover:bg-blue-600 hover:text-white rounded-md">
+                          <span className="block px-4 py-1 text-sm sm:text-base cursor-pointer hover:bg-blue-600 hover:text-white rounded-md">
                             Manage Bar
                           </span>
                         </Link>
                       </li>
-                    )}
+                    )}Í
                     <li>
                       <button
-                        className="block w-full text-left px-4 py-1 cursor-pointer hover:bg-blue-600 hover:text-white rounded-md"
+                        className="block w-full text-left px-4 py-1 text-sm sm:text-base cursor-pointer hover:bg-blue-600 hover:text-white rounded-md"
                         onClick={handleLogout}
                       >
                         Logout
