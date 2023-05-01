@@ -107,7 +107,7 @@ function Navbar() {
                           </span>
                         </Link>
                       </li>
-                    )}Í
+                    )}
                     <li>
                       <button
                         className="block w-full text-left px-4 py-1 text-sm sm:text-base cursor-pointer hover:bg-blue-600 hover:text-white rounded-md"

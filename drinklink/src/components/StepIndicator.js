@@ -6,7 +6,7 @@ function StepIndicator({ currentStep }) {
       <div className="flex items-center">
         <div
           className={`w-8 h-8 flex items-center justify-center rounded-full ${
-            currentStep === 1 ? "bg-indigo-600 text-white" : "bg-gray-200 text-indigo-600"
+            currentStep === 1 ? "bg-blue-500 text-white" : "bg-gray-200 text-blue-500"
           }`}
         >
           1
@@ -16,7 +16,7 @@ function StepIndicator({ currentStep }) {
       <div className="flex items-center">
         <div
           className={`w-8 h-8 flex items-center justify-center rounded-full ${
-            currentStep === 2 ? "bg-indigo-600 text-white" : "bg-gray-200 text-indigo-600"
+            currentStep === 2 ? "bg-blue-500 text-white" : "bg-gray-200 text-blue-500"
           }`}
         >
           2
@@ -26,7 +26,7 @@ function StepIndicator({ currentStep }) {
       <div className="flex items-center">
         <div
           className={`w-8 h-8 flex items-center justify-center rounded-full ${
-            currentStep === 3 ? "bg-indigo-600 text-white" : "bg-gray-200 text-indigo-600"
+            currentStep === 3 ? "bg-blue-500 text-white" : "bg-gray-200 text-blue-500"
           }`}
         >
           3

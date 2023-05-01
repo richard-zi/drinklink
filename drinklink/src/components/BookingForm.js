@@ -83,8 +83,8 @@ function BookingForm() {
       type="button"
       onClick={onClick}
       className={`w-full px-4 py-2 border border-gray-300 ${
-        value ? "bg-indigo-600 text-white" : "text-gray-700"
-      } rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+        value ? "bg-blue-500 text-white" : "text-gray-700"
+      } rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
     >
       {value ? value : "Wählen Sie ein Datum"}
     </button>
@@ -124,9 +124,9 @@ function BookingForm() {
                   onClick={() => handleChange("time", time)}
                   className={`w-full px-4 py-2 border border-gray-300 ${
                     bookingData.time === time
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-blue-500 text-white"
                       : "text-gray-700"
-                  } rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  } rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
                 >
                   {time}
                 </button>
@@ -147,9 +147,9 @@ function BookingForm() {
                   onClick={() => handleChange("people", count)}
                   className={`w-full px-4 py-2 border border-gray-300 ${
                     bookingData.people === count
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-blue-500 text-white"
                       : "text-gray-700"
-                  } rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  } rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
                 >
                   {count}
                 </button>
@@ -161,7 +161,7 @@ function BookingForm() {
           <button
             type="button"
             onClick={handleNextStep}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Weiter
           </button>
@@ -178,7 +178,7 @@ function BookingForm() {
         {currentStep === 3 && (
           <button
             type="submit"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Buchung erstellen
           </button>
