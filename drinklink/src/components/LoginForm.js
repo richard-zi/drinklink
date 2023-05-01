@@ -2,27 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "../lib/apiUtils";
-
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-
-async function login(username, password) {
-  const response = await sendPostRequest(`${serverUrl}/login`, {
-    username,
-    password,
-  });
-  if (response.status === 200) {
-    const data = await response.json();
-    console.log(data);
-    alert(`Erfolgreiche Anmeldung! Willkommen ${data.user.username}`);
-    return true;
-  } else {
-    const error = await response.json();
-    console.error(error);
-    alert("Fehler bei der Anmeldung: " + error.error);
-    return false;
-  }
-}
+import { login } from "../lib/authUtils";
 
 function LoginForm (){
   const [username, setUsername] = useState("");

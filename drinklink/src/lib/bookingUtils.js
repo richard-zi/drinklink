@@ -1,4 +1,4 @@
-// booking-utils.js
+// bookingUtils.js
 import { sendGetRequest } from "./apiUtils.js";
 import { sendDeleteRequest } from "./apiUtils.js";
 

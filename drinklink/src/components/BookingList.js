@@ -1,9 +1,9 @@
 // BookingList.js
 
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "../lib/getCurrentUser";
-import { getUserBookings } from "../lib/bookingUtils";
-import { cancelBooking } from "../lib/bookingUtils";
+import { getCurrentUser } from "components/lib/userUtils";
+import { getUserBookings } from "components/lib/bookingUtils";
+import { cancelBooking } from "components/lib/bookingUtils";
 
 function formatDate(dateString) {
   const date = new Date(dateString);

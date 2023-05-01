@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "components/lib/apiUtils";
-import { getCurrentUser } from "components/lib/getCurrentUser";
-
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+import { getCurrentUser } from "components/lib/userUtils";
+import { logout } from "components/lib/authUtils";
 
 function Navbar() {
   const [user, setUser] = useState(null);
@@ -22,7 +20,7 @@ function Navbar() {
   }, [router.pathname]);
 
   async function handleLogout() {
-    await sendPostRequest(`${serverUrl}/logout`);
+    await logout(); 
     setUser(null);
     router.push("/");
   }

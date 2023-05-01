@@ -1,28 +1,8 @@
 // signup.js
 
 import { useState } from "react";
-import { sendPostRequest } from "../lib/apiUtils";
-import { useRouter } from "next/router"; // Importiere useRouter von 'next/router'
-
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-
-async function register(username, password) {
-  const response = await sendPostRequest(`${serverUrl}/signup`, {
-    username,
-    password,
-  });
-  if (response.status === 201) {
-    const data = await response.json();
-    console.log(data);
-    alert("Erfolgreiche Registrierung!");
-    return true;
-  } else {
-    const error = await response.json();
-    console.error(error);
-    alert("Fehler bei der Registrierung: " + error.error);
-    return false;
-  }
-}
+import { useRouter } from "next/router"; 
+import { register } from "../lib/authUtils"; 
 
 function SignupForm() {
   const [username, setUsername] = useState("");
