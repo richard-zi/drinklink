@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 // Handler zum Erstellen einer neuen Bar
 async function createBarHandler(req, res) {
-  const { name, address, description } = req.body;
+  const { name, address, description, capacity, openingTime, closingTime } = req.body;
   const userId = req.session.userId;
 
   // Erstelle eine neue Bar und weise sie dem Benutzer als Besitzer zu
@@ -14,6 +14,9 @@ async function createBarHandler(req, res) {
       name,
       address,
       description,
+      capacity: parseInt(capacity, 10),
+      openingTime,
+      closingTime,
       owner: { connect: { id: userId } },
     },
   });
@@ -21,10 +24,9 @@ async function createBarHandler(req, res) {
   res.status(StatusCodes.CREATED).json(newBar);
 }
 
-// Handler zur Aktualisierung einer Bar
 async function updateBarHandler(req, res) {
   const { id } = req.params;
-  const { name, address, description } = req.body;
+  const { name, address, description, capacity, openingTime, closingTime } = req.body;
   const userId = req.session.userId;
 
   // Suche die Bar in der Datenbank und überprüfe, ob der Benutzer der Besitzer ist
@@ -37,7 +39,14 @@ async function updateBarHandler(req, res) {
   // Aktualisiere die Bar und gebe die aktualisierte Bar zurück
   const updatedBar = await prisma.bar.update({
     where: { id: Number(id) },
-    data: { name, address, description },
+    data: {
+      name,
+      address,
+      description,
+      capacity: parseInt(capacity, 10),
+      openingTime,
+      closingTime,
+    },
   });
 
   res.status(StatusCodes.OK).json(updatedBar);

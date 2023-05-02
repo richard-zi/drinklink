@@ -35,6 +35,9 @@ model bar {
   name        String
   description String
   address     String
+  capacity    Int      
+  openingTime String 
+  closingTime String 
   owner       users    @relation("barOwner", fields: [ownerId], references: [id])
   ownerId     Int      @unique
   bookings    booking[] 

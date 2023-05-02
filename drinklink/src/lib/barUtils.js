@@ -7,9 +7,9 @@ import { sendDeleteRequest } from "./apiUtils";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-export const createBar = async (name, address, description) => {
+export const createBar = async (name, address, description, capacity, openingTime, closingTime) => {
   try {
-    const response = await sendPostRequest(`${serverUrl}/bar`, { name, address, description });
+    const response = await sendPostRequest(`${serverUrl}/bar`, { name, address, description, capacity, openingTime, closingTime });
     if (response.ok) {
       return await response.json();
     } else {
@@ -20,9 +20,9 @@ export const createBar = async (name, address, description) => {
   }
 };
 
-export const updateBar = async (barId, name, address, description) => {
+export const updateBar = async (barId, name, address, description, capacity, openingTime, closingTime) => {
   try {
-    const response = await sendPutRequest(`${serverUrl}/bar/${barId}`, { name, address, description });
+    const response = await sendPutRequest(`${serverUrl}/bar/${barId}`, { name, address, description, capacity, openingTime, closingTime });
     if (response.ok) {
       return await response.json();
     } else {

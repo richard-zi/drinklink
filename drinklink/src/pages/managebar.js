@@ -3,12 +3,15 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
-import { createBar, updateBar, deleteBar, getBar } from "../lib/barUtils"; // Import the functions from barUtils.js
+import { createBar, updateBar, deleteBar, getBar } from "../lib/barUtils";
 
 function ManageBar() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
+  const [capacity, setCapacity] = useState("");
+  const [openingTime, setOpeningTime] = useState("");
+  const [closingTime, setClosingTime] = useState("");
   const [createdBar, setCreatedBar] = useState(null);
 
   const handleCreateBar = async () => {
@@ -18,7 +21,14 @@ function ManageBar() {
     }
 
     try {
-      const barData = await createBar(name, address, description);
+      const barData = await createBar(
+        name,
+        address,
+        description,
+        capacity,
+        openingTime,
+        closingTime
+      );
       setCreatedBar(barData);
     } catch (error) {
       console.error("Error creating bar:", error);
@@ -32,7 +42,10 @@ function ManageBar() {
           createdBar.id,
           name,
           address,
-          description
+          description,
+          capacity,
+          openingTime,
+          closingTime
         );
         setCreatedBar(updatedBar);
       } catch (error) {
@@ -110,6 +123,33 @@ function ManageBar() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
+              <div className="mb-4">
+                <input
+                  type="number"
+                  placeholder="Maximale Personenanzahl"
+                  className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm"
+                  value={capacity}
+                  onChange={(e) => setCapacity(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="time"
+                  placeholder="Öffnungszeit"
+                  className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm"
+                  value={openingTime}
+                  onChange={(e) => setOpeningTime(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="time"
+                  placeholder="Schließzeit"
+                  className="border rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-sm"
+                  value={closingTime}
+                  onChange={(e) => setClosingTime(e.target.value)}
+                />
+              </div>
               <div>
                 <button
                   onClick={handleCreateBar}
@@ -143,6 +183,9 @@ function ManageBar() {
                 <p>Name: {createdBar.name}</p>
                 <p>Adresse: {createdBar.address}</p>
                 <p>Beschreibung: {createdBar.description}</p>
+                <p>Maximale Personenanzahl: {createdBar.capacity}</p>
+                <p>Öffnungszeit: {createdBar.openingTime}</p>
+                <p>Schließzeit: {createdBar.closingTime}</p>
               </div>
             )}
           </div>
