@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import { sendGetRequest } from "../../lib/apiUtils";
+import { sendGetRequest } from "components/lib/apiUtils";
 import BookingForm from "../../components/BookingForm";
 import Head from "next/head";
 

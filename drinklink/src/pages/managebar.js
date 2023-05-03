@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
-import { createBar, updateBar, deleteBar, getBar } from "../lib/barUtils";
+import { createBar, updateBar, deleteBar, getBar } from "components/lib/barUtils";
 
 function ManageBar() {
   const [name, setName] = useState("");
