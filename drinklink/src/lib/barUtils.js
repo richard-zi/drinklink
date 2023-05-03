@@ -46,9 +46,9 @@ export const deleteBar = async (barId) => {
   }
 };
 
-export const getBar = async () => {
+export const getBar = async (barId) => {
   try {
-    const response = await sendGetRequest(`${serverUrl}/bar`);
+    const response = await sendGetRequest(`${serverUrl}/api/bar/${barId}`);
     if (response.ok) {
       return await response.json();
     } else {

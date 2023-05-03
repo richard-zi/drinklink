@@ -5,16 +5,13 @@ const prisma = new PrismaClient();
 
 // Handler zum Erstellen einer neuen Buchung
 async function createBookingHandler(req, res) {
-  const { date, time, people, barId } = req.body;
+  const { dateTime, people, barId } = req.body;
   const userId = req.session.userId;
-
-  // Kombinieren Sie das Datum und die Uhrzeit in einer einzigen DateTime-Variable
-  const dateTime = new Date(`${date}T${time}`);
 
   try {
     const newBooking = await prisma.booking.create({
       data: {
-        dateTime, // Verwenden Sie die kombinierte dateTime-Variable
+        dateTime: new Date(dateTime),
         people: parseInt(people, 10),
         user: {
           connect: {
@@ -33,9 +30,9 @@ async function createBookingHandler(req, res) {
   } catch (error) {
     console.error(error);
     let errorMessage = "Server error, please try again.";
-    if (error instanceof Prisma.PrismaClientValidationError) {
+    if (error instanceof prisma.PrismaClientValidationError) {
       errorMessage = "Invalid booking data. Please check the input fields.";
-    } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    } else if (error instanceof prisma.PrismaClientKnownRequestError) {
       errorMessage = "Booking conflict. Please choose a different time.";
     }
     res.status(500).json({ error: errorMessage });
