@@ -4,6 +4,8 @@ import Layout from "../../components/Layout";
 import { sendGetRequest } from "components/lib/apiUtils";
 import BookingForm from "../../components/BookingForm";
 import Head from "next/head";
+import { getCurrentUser } from "../../lib/userUtils";
+import LoginForm from "components/components/LoginForm";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -11,12 +13,13 @@ export default function BarDetails() {
   const router = useRouter();
   const { id } = router.query;
   const [bar, setBar] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function fetchBarDetails() {
       if (!id) return;
       try {
-        const response = await sendGetRequest(`${serverUrl}/api/bar/${id}`);
+        const response = await sendGetRequest(`${serverUrl}/bar/${id}`);
         if (response.status === 200) {
           const barData = await response.json();
           setBar(barData);
@@ -30,6 +33,15 @@ export default function BarDetails() {
 
     fetchBarDetails();
   }, [id]);
+
+  useEffect(() => {
+    async function fetchCurrentUser() {
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
+    }
+
+    fetchCurrentUser();
+  }, []);
 
   if (!bar) {
     return <div>Loading...</div>;
@@ -55,10 +67,13 @@ export default function BarDetails() {
             </p>
           </div>
           <div className="bg-white rounded-md p-6 shadow-md md:w-1/3 flex justify-center items-center">
-            <div className="w-full md:w-2/3">
-              <h2 className="text-2xl font-bold mb-4">Buchungsformular</h2>
-              <BookingForm />
-            </div>
+              {user ? (
+                <>
+                  <BookingForm />
+                </>
+              ) : (
+                <LoginForm></LoginForm>
+              )}
           </div>
         </div>
       </Layout>

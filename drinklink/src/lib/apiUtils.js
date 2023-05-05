@@ -1,4 +1,4 @@
-// api-utils.js
+// apiUtils.js
 
 export async function sendPostRequest(url, payload) {
   try {

@@ -169,6 +169,7 @@ function BookingForm() {
   );
 
   return (
+    <div className="w-full md:w-2/3">
     <div className="space-y-4">
       <StepIndicator currentStep={currentStep} />
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -264,6 +265,7 @@ function BookingForm() {
           </button>
         )}
       </form>
+    </div>
     </div>
   );
 }

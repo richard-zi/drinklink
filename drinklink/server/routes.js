@@ -40,7 +40,7 @@ router.put("/bar/:id", isAuthenticated, asyncHandler(updateBarHandler));
 router.get("/bar", isAuthenticated, asyncHandler(getBarHandler));
 router.delete("/bar/:id", isAuthenticated, asyncHandler(deleteBarHandler));
 router.get("/bars", asyncHandler(getAllBarsHandler));
-router.get("/api/bar/:id", asyncHandler(getSingleBarHandler));
+router.get("/bar/:id", asyncHandler(getSingleBarHandler));
 
 // Route für geschützten Bereich, die nur von authentifizierten Benutzern aufgerufen werden kann
 router.get("/protected", isAuthenticated, (req, res) => {

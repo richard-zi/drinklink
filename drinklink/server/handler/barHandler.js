@@ -81,6 +81,9 @@ async function deleteBarHandler(req, res) {
     return res.status(StatusCodes.NOT_FOUND).json({ error: "Bar not found" });
   }
 
+  // Lösche alle Buchungen, die mit der Bar in Verbindung stehen
+  await prisma.booking.deleteMany({ where: { barId: Number(id) } });
+
   // Lösche die Bar aus der Datenbank und setze isBarOwner auf false für den Benutzer
   await prisma.bar.delete({ where: { id: Number(id) } });
   await prisma.users.update({

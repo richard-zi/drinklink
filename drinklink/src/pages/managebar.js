@@ -1,9 +1,14 @@
 // managebar.js
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
-import { createBar, updateBar, deleteBar, getBar } from "components/lib/barUtils";
+import {
+  createBar,
+  updateBar,
+  deleteBar,
+  getBar,
+} from "components/lib/barUtils";
 
 function ManageBar() {
   const [name, setName] = useState("");
@@ -70,13 +75,31 @@ function ManageBar() {
   };
 
   const handleGetBar = async () => {
-    try {
-      const barData = await getBar();
-      setCreatedBar(barData);
-    } catch (error) {
-      console.error("Error fetching bar:", error);
+    if (createdBar) {
+      try {
+        const barData = await getBar(createdBar.id);
+        setCreatedBar(barData);
+      } catch (error) {
+        console.error("Error fetching bar:", error);
+      }
+    } else {
+      console.log("No bar to fetch");
     }
   };
+
+  useEffect(() => {
+    const fetchBar = async () => {
+      try {
+        const barData = await getBar();
+        setCreatedBar(barData);
+      } catch (error) {
+        console.error("Error fetching bar:", error);
+      }
+    };
+  
+    fetchBar();
+  }, []);
+  
 
   return (
     <>
