@@ -7,7 +7,7 @@ import { cancelBooking } from "components/lib/bookingUtils";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleString();
+  return date.toUTCString();
 }
 
 function BookingList() {
@@ -41,12 +41,12 @@ function BookingList() {
   }
 
   if (!bookings || bookings.length === 0) {
-    return <div>Keine Buchungen gefunden</div>;
+    return <div>No bookings found</div>;
   }
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-2xl font-semibold mb-4">Ihre Buchungen</h2>
+      <h2 className="text-2xl font-semibold mb-4">Your Bookings</h2>
       <ul className="mt-4">
         {bookings.map((booking) => (
           <li key={booking.id} className="border-b border-gray-200 py-2">
@@ -54,7 +54,7 @@ function BookingList() {
               <div>
                 <h3 className="text-xl font-semibold">{booking.bar.name}</h3>
                 <p>
-                  Datum: {formatDate(booking.dateTime)} | Personen:{" "}
+                  Date: {formatDate(booking.dateTime)} | People:{" "}
                   {booking.people}
                 </p>
               </div>
@@ -62,7 +62,7 @@ function BookingList() {
                 onClick={() => handleCancelBooking(booking.id)}
                 className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
               >
-                Stornieren
+                Cancel
               </button>
             </div>
           </li>
