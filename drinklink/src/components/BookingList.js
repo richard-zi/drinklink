@@ -1,5 +1,3 @@
-// BookingList.js
-
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "components/lib/userUtils";
 import { getUserBookings } from "components/lib/bookingUtils";
@@ -16,32 +14,32 @@ function BookingList() {
 
   useEffect(() => {
     async function fetchBookings() {
-      const currentUser = await getCurrentUser();
+      const currentUser = await getCurrentUser(); // Aktuellen Benutzer abrufen
       if (currentUser) {
-        const userBookings = await getUserBookings(currentUser.id);
-        setBookings(userBookings);
+        const userBookings = await getUserBookings(currentUser.id); // Buchungen des Benutzers abrufen
+        setBookings(userBookings); // Buchungen setzen
       }
-      setLoading(false);
+      setLoading(false); // Ladezustand beenden
     }
-    fetchBookings();
+    fetchBookings(); // Funktion zum Abrufen der Buchungen aufrufen
   }, []);
 
   async function handleCancelBooking(bookingId) {
-    const response = await cancelBooking(bookingId);
+    const response = await cancelBooking(bookingId); // Buchung stornieren
 
     if (response && response.ok) {
-      setBookings(bookings.filter((booking) => booking.id !== bookingId));
+      setBookings(bookings.filter((booking) => booking.id !== bookingId)); // Stornierte Buchung aus der Liste entfernen
     } else {
-      alert("Fehler beim Stornieren der Buchung");
+      alert("Error when cancelling the booking"); // Fehlermeldung anzeigen
     }
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Ladezustand anzeigen
   }
 
   if (!bookings || bookings.length === 0) {
-    return <div>No bookings found</div>;
+    return <div>No bookings found</div>; // Keine Buchungen gefunden
   }
 
   return (

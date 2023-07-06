@@ -12,9 +12,11 @@ export default function AccountPage() {
   const [isBarOwner, setIsBarOwner] = useState(false);
 
   useEffect(() => {
+    // Abrufen des aktuellen Benutzers auf dem Komponentenmount
     const fetchCurrentUser = async () => {
       const user = await getCurrentUser();
       if (user) {
+        // Aktualisieren des isBarOwner-Status auf der Grundlage des aktuellen Benutzerstatus
         setIsBarOwner(user.isBarOwner);
       }
     };
@@ -23,13 +25,16 @@ export default function AccountPage() {
   }, []);
 
   const handleBarOwnerChange = async (e) => {
+    // Aktualisieren Sie den isBarOwner-Status, wenn sich der Wert des Kontrollkästchens ändert.
     const newIsBarOwner = e.target.checked;
     setIsBarOwner(newIsBarOwner);
+    // Aktualisieren Sie den Status des Barbesitzers auf dem Server
     await updateBarOwnerStatus(newIsBarOwner);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Übermittlung der aktualisierten Kontoinformationen an den Server
     await updateAccount(username, oldPassword, newPassword);
   };
 

@@ -1,14 +1,17 @@
 import { useState } from 'react';
 
 export default function SearchBar() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
+    // Zustandsvariablen definieren
+    const [isOpen, setIsOpen] = useState(false); // Zustandsvariable für Menü öffnen/schließen
+    const [searchTerm, setSearchTerm] = useState(''); // Statusvariable für Suchbegriff
 
+    // Handle search button click
     const handleSearch = (e) => {
         e.preventDefault();
         window.dispatchEvent(new CustomEvent('searchTermChange', { detail: searchTerm }));
   };
-    
+
+  // Rendering der Suchleistenkomponente
   return (
       <nav className="bg-white shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

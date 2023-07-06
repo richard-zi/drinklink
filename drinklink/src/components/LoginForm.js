@@ -5,13 +5,19 @@ import { useRouter } from "next/router";
 import { login } from "../lib/authUtils";
 
 function LoginForm (){
+  // Statusvariablen für Benutzernamen und Passwort definieren
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
+  // Abrufen der Router-Instanz
   const router = useRouter();
 
+  // Übermittlung von Formularen handhaben
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Die Login-Funktion aufrufen und auf das Ergebnis warten
     if (await login(username, password)) {
+      // Weiterleitung zur Startseite bei erfolgreicher Anmeldung
       router.push("/");
     }
   };

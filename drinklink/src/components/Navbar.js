@@ -10,6 +10,7 @@ function Navbar() {
   const router = useRouter();
 
   useEffect(() => {
+    // Holt den aktuellen Benutzer ab, wenn sich die Route ändert
     async function fetchUser() {
       const currentUser = await getCurrentUser();
       setUser(currentUser);
@@ -18,12 +19,14 @@ function Navbar() {
   }, [router.pathname]);
 
   async function handleLogout() {
+    // Führt Logout-Aktionen durch und leitet zur Homepage weiter
     await logout();
     setUser(null);
     router.push("/");
   }
 
   function toggleDropdown() {
+    // Schaltet das Dropdown-Menü für Benutzeraktionen ein
     setDropdownOpen(!dropdownOpen);
   }
 

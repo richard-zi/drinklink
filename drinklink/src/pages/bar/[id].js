@@ -7,22 +7,29 @@ import Head from "next/head";
 import { getCurrentUser } from "../../lib/userUtils";
 import LoginForm from "components/components/LoginForm";
 
+// Definieren Sie die Server-URL
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
+// Definieren Sie die Komponente Bar Details
 export default function BarDetails() {
+  // Abrufen der Router-Instanz
   const router = useRouter();
+  // Abrufen der "id" aus der Router-Abfrage
   const { id } = router.query;
+  // Zustandsvariablen definieren
   const [bar, setBar] = useState(null);
   const [user, setUser] = useState(null);
 
+  // Abrufen von Bar Details, wenn sich 'id' ändert
   useEffect(() => {
     async function fetchBarDetails() {
-      if (!id) return;
+      if (!id) return; // Wenn "id" nicht verfügbar ist, wird zurückgegeben
       try {
+        // Senden Sie eine GET-Anfrage, um die Details der Bar abzurufen.
         const response = await sendGetRequest(`${serverUrl}/bar/${id}`);
         if (response.status === 200) {
           const barData = await response.json();
-          setBar(barData);
+          setBar(barData); // Setzen Sie die abgerufenen Bar Details auf den Zustand
         } else {
           alert("Fehler beim Abrufen der Bar-Details");
         }
@@ -34,15 +41,17 @@ export default function BarDetails() {
     fetchBarDetails();
   }, [id]);
 
+  // Abrufen der aktuellen Benutzerdetails beim Einhängen der Komponente
   useEffect(() => {
-    async function fetchCurrentUser() {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
+    async function fetchCurrentUser() { 
+      const currentUser = await getCurrentUser(); // Abrufen des aktuellen Benutzers
+      setUser(currentUser); // Den aktuellen Benutzer auf den Zustand setzen
     }
 
     fetchCurrentUser();
   }, []);
 
+  // Rendering des Ladezustands, wenn noch keine Bar Details verfügbar sind
   if (!bar) {
     return <div>Loading...</div>;
   }

@@ -11,6 +11,7 @@ import {
 } from "components/lib/barUtils";
 
 function ManageBar() {
+  // Zustandsvariablen definieren
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
@@ -19,6 +20,7 @@ function ManageBar() {
   const [closingTime, setClosingTime] = useState("");
   const [createdBar, setCreatedBar] = useState(null);
 
+  // Erstellung einer neuen Bar behandeln
   const handleCreateBar = async () => {
     if (createdBar) {
       alert("Du kannst nur eine Bar erstellen.");
@@ -40,6 +42,7 @@ function ManageBar() {
     }
   };
 
+  // Aktualisierung einer bestehenden Bar behandeln
   const handleUpdateBar = async () => {
     if (createdBar) {
       try {
@@ -61,6 +64,7 @@ function ManageBar() {
     }
   };
 
+  // Funktion für das Löschen einer bestehenden Bar
   const handleDeleteBar = async () => {
     if (createdBar) {
       try {
@@ -74,6 +78,7 @@ function ManageBar() {
     }
   };
 
+  // Funktion zum Abrufen von Daten für die aktuell erstellten Bar
   const handleGetBar = async () => {
     if (createdBar) {
       try {
@@ -87,6 +92,7 @@ function ManageBar() {
     }
   };
 
+  // Hole die Bar-Daten, wenn die Komponente aktiviert wird
   useEffect(() => {
     const fetchBar = async () => {
       try {
